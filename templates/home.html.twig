@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home!
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h4>
+			<a href="/" class="link">Importing CSV</a>
+		</h4>
+
+		<hr>
+		<div class="form">
+
+			{{ form_start(form) }}
+
+			<div class="row">
+				<div class="col"></div>
+			</div>
+			<div class="row">
+				<div class="col-2">
+					{{ form_label(form.file_name) }}</div>
+				<div class="col-3">
+
+					{{ form_widget(form.file_name) }}
+
+					<div class="text-danger" role="alert">
+
+						{{ form_errors(form.file_name) }}
+					</div>
+
+				</div>
+				<div class="col-2" id="some-custom-id">
+					{{ form_row(form.save) }}
+				</div>
+			</div>
+			{{ form_end(form) }}
+
+
+		</div>
+
+
+		{% if files|length >0 %}
+			<hr>
+			<div class="row">
+				<div class="col">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>File Name</th>
+								<th>Uploaded Date</th>
+								<th>Total Errors</th>
+								<th>Valid Records</th>
+								<th>Total Recors</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+
+
+						<tbody>
+
+							{% for item in files %}
+								<tr>
+									<td>
+										<a href="{{ item.getInvoicefileUrl }}">{{ item.getfileName }}</a>
+									</td>
+									<td>{{ item.getCreated.format("d-m-Y") }}</td>
+									<td>
+										<a href="{{ path('invoices_errors_by_file',{'id':item.id})}}">{{ item.getErrros|length }}</a>
+									</td>
+									<td>
+										<a href="{{ path('list_invoices_by_file',{'id':item.id})}}">{{ item.getTotalRecords - item.getErrros|length }}</a>
+									</td>
+
+									<td>
+										{{ item.getTotalRecords}}
+									</td>
+
+									<td>
+										<a href="{{ path('source_file_delete',{'id':item.id})}}" class="btn btn-danger">Delete</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

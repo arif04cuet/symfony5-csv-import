@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home!
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+		<h4>
+			<a href="/">Importing CSV</a>
+
+		</h4>
+
+
+		<hr>
+		<p>All errors in file
+			{{ file.getFileName }}</p>
+
+
+		{% if file.getErrros|length >0 %}
+			<hr>
+			<div class="row">
+				<div class="col">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Invoice number #</th>
+								<th>Errors</th>
+							</tr>
+						</thead>
+
+
+						<tbody>
+
+							{% for key,errors in file.getErrros %}
+								<tr>
+									<td>{{ key }}</td>
+									<td>
+										{% for error in errors %}
+											<li>{{error}}</li>
+										{% endfor %}
+									</td>
+
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

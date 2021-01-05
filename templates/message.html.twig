@@ -1,0 +1,20 @@
+<div class="container text-center">
+
+
+	{% for label, flashes in app.session.flashbag.all %}
+		{% for flash in flashes %}
+			{% if ( label == 'success' ) %}
+				<div class="alert alert-success alert-dismissible fade show">
+					{{ flash }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% elseif ( label == 'error' ) %}
+				<div class="alert alert-danger alert-dismissible fade show">
+					{{ flash }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endif %}
+		{% endfor %}
+	{% endfor %}
+
+</div>

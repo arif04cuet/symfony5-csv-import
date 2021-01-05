@@ -1,3 +1,18 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+   path: /
+   controller: App\Controller\DefaultController::index
+source_file_delete:
+   path: /source-file/delete/{id}
+   controller: App\Controller\DefaultController::delete
+list_invoices_by_file:
+   path: /source-file/{id}/invoices
+   controller: App\Controller\DefaultController::listInvoices
+invoices_errors_by_file:
+   path: /source-file/{id}/errors
+   controller: App\Controller\DefaultController::listErrors
+
+
+
+test:
+   path: /test
+   controller: App\Controller\DefaultController::test
